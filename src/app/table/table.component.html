@@ -1,0 +1,56 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-6">Online blocknot</h1>
+    </div>
+</div>
+<div class="conteiner ">
+    <div class="row justify-content-around align-items-center">
+        <div class="col-10">
+            <table class="table">
+                <tr>
+                    <th>&#10003;</th>
+                    <th>ID</th>
+                    <th>название</th>
+                    <th>описание</th>
+                    <th>важность</th>
+                    <th>создано</th>
+                    <th>выполнить до</th>
+                    <th>выполнено</th>
+                </tr>
+                <ng-container *ngFor="let item of todosServise.todos;let i=index ">
+                    <tr  (click)="_rowClick($event, item.id)" 
+                    [class.tr__changed] = "item.changed"
+                    class="tr-pointer">
+                        <ng-container >
+                            <td><input type="checkbox" 
+                                [checked]="item.completed"
+                                (change)="onChangeComplete(item.id)"></td>
+                            <td>{{item.id}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.description}}</td>
+                            <td>{{item.importance}}</td>
+                            <td>{{item.create | date:'short'}}</td>
+                            <td>{{item.deadline | date:'short'}}</td>
+                            <td>{{(item.completed | date:'short')||'не выполнено'}}</td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </table>
+        </div>
+        <div class="col-1">
+            <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons">
+                <label class="btn btn-secondary active btn">
+                    <input type="radio" name="options" id="option1" checked> Важные
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option2"> Обычные
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option3"> Срочные
+                </label>
+            </div>
+        </div>      
+    </div>
+    <app-remote-table
+        (changedList)="changedList"
+    ></app-remote-table>

@@ -1,0 +1,35 @@
+.remote-conteiner {
+    width          : 95vw;
+    height         : 20vh;
+    margin         : 2rem auto;
+    display        : flex;
+    flex-flow      : row wrap;
+    justify-content: space-evenly;
+    align-items    : center;
+
+    .remote-filter {
+        flex: 1 1 200px;
+    }
+
+    .performed {
+        padding        : auto 2rem;
+        flex           : 1 1 200px;
+        display        : flex;
+        justify-content: center;
+
+        .performed_btn {
+            margin: 5rem auto;
+        }
+    }
+
+    .remote-edit {
+        flex            : 1 1 200px;
+        display         : flex;
+        justify-content: flex-end;
+        .remote-edit_btns {
+            button {
+                margin-left: 1rem;
+            }
+        }
+    }
+}

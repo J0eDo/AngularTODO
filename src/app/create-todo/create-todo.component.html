@@ -1,0 +1,28 @@
+<div class="modal-body">
+    <h2 class="display-4">Создать заметку</h2>
+    <div class="conteiner">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">название</span>
+            </div>
+            <input type="text" class="form-control" aria-label="name" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <textarea class="form-control" rows="3" placeholder="описание"></textarea>
+        </div>
+        <div class="input-group mb-3">
+            <mat-form-field>
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+        </div>
+        <div class="input-group mb-3">
+            <select class="custom-select custom-select-sm">
+                <option selected>Сервер</option>
+                <option value="2">Устройство</option>
+                <option value="3">Устройство и сервер</option>
+            </select>
+        </div>
+    </div>

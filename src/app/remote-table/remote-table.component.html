@@ -1,0 +1,17 @@
+<div class="conteiner ">
+    <div class="row justify-content-around">
+        <div class="col-4">
+            <div class="btn-group">
+                <button class="btn btn-danger" 
+                [disabled]='btns.delete.disabled' (click)='tester()'>УДАЛИТЬ</button>
+            </div>
+        </div>
+        <div class='col-2'>
+            <div class='btn-group'>
+                <button class="btn btn-primary" [disabled]='btns.edite.disabled'
+                    (click)='redact()'>редактировать</button>
+                <button class="btn btn-success" [disabled]='btns.add.disabled' (click)='openDialog()'>создать</button>
+            </div>
+        </div>
+    </div>
+</div>
