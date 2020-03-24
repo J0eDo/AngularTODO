@@ -18,13 +18,10 @@
                     <th>выполнено</th>
                 </tr>
                 <ng-container *ngFor="let item of todosServise.todos;let i=index ">
-                    <tr  (click)="_rowClick($event, item.id)" 
-                    [class.tr__changed] = "item.changed"
-                    class="tr-pointer">
-                        <ng-container >
-                            <td><input type="checkbox" 
-                                [checked]="item.completed"
-                                (change)="onChangeComplete(item.id)"></td>
+                    <tr (click)="_rowClick($event, item.id)" [class.tr__changed]="item.changed" class="tr-pointer">
+                        <ng-container>
+                            <td><input type="checkbox" [checked]="item.completed" (change)="onChangeComplete(item.id)">
+                            </td>
                             <td>{{item.id}}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.description}}</td>
@@ -49,8 +46,12 @@
                     <input type="radio" name="options" id="option3"> Срочные
                 </label>
             </div>
-        </div>      
+        </div>
     </div>
-    <app-remote-table
-        (changedList)="changedList"
-    ></app-remote-table>
+    <div class="row">
+        <div class="col">
+            <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+        </div>
+    </div>
+    <remote-table (changedList)="changedList"></remote-table>

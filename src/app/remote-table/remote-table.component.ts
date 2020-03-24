@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { todosService, RemoteBtn } from '../shared/todos.service';
-import { secondWindow } from '../shared/second-window.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog'
 import { CreateTodoComponent } from '../create-todo/create-todo.component'
 export interface DialogData {
   animal: string;
@@ -9,7 +8,7 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-remote-table',
+  selector: 'remote-table',
   templateUrl: './remote-table.component.html',
   styleUrls: ['./remote-table.component.scss']
 })
@@ -20,14 +19,14 @@ export class RemoteTableComponent implements OnInit {
   public remove: any
   public redact: any
   public btns: RemoteBtn
-  constructor(public todosService: todosService,public dialog: MatDialog) {
+  constructor(public todosService: todosService, public dialog: MatDialog) {
     this.btns = todosService.remoteBtn
     this.add = todosService.todoAdd
     this.redact = todosService.todoRedact
     this.remove = todosService.todoDelete
   }
 
-   openDialog(): void {
+  openDialog(): void {
     const dialogRef = this.dialog.open(CreateTodoComponent, {
       minWidth: '350px',
     });
@@ -35,7 +34,7 @@ export class RemoteTableComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
-  } 
+  }
 
   tester() {
     this.remove()

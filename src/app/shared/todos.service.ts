@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core'
 import { element } from 'protractor'
 
-enum Importance {
+export enum Importance {
     lv1 = 'Обычная',
     lv2 = 'Важная',
     lv3 = 'Очень важная'
 }
 
 export interface Todo {
-    id: number,
-    name: string,
-    description: string,
+    id: number | string,
+    name: string | '',
+    description: string | '',
     importance: Importance,
     create: any,
     deadline: any,
