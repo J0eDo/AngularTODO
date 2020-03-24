@@ -33,7 +33,7 @@ export interface RemoteBtn {
 let dateTime = new Date().toUTCString()
 @Injectable({ providedIn: 'root' })
 export class todosService {
-    public changedList = new Set()
+    private todoDeleteID: any = new Set()
     public viewTodo: Todo | null = null
     public todosTable: Todo[]
     public deleteMode: boolean = false
@@ -73,7 +73,7 @@ export class todosService {
     }
 
 
-    onToggle(id: number) {
+    onComplete(id: number) {
         const todoElement = this.todosAll.find(element => element.id === id)
         if (todoElement.completed) {
             todoElement.completed = ''
@@ -102,8 +102,14 @@ export class todosService {
         this.remoteBtnsActivator()
     }
 
+    changeDeletedID = (id: number | string) => {
+        this.todoDeleteID.has(id) ?
+            this.todoDeleteID.delete(id) :
+            this.todoDeleteID.add(id)
+    }
+
     remoteBtnsActivator() {
-        const selectedItem = this.changedList.size
+        const selectedItem = this.todoDeleteID.size
         if (selectedItem === 0) {
             this.remoteBtn.delete.disabled = true;
             this.remoteBtn.edite.disabled = true;
@@ -118,11 +124,21 @@ export class todosService {
 
 
     todoDelete = () => {
-        this.todosAll = this.todosAll.filter(element => !this.changedList.has(element.id))
+        this.todosAll = this.todosAll.filter(element => !this.todoDeleteID.has(element.id))
+        this.todosTable = [...this.todosAll]
+        console.log(this.todosAll);
+        
     }
 
+    todoClearDeleteID = () => { 
+        this.todoDeleteID = new Set() 
+        console.log(this.todoDeleteID);
+        
+    }
+    isSetedDeleted(id: number | string) { this.todoDeleteID.has(id) }
     todoSave = (todo: Todo) => {
         this.todosAll.push(todo)
+
         localStorage.setItem('todo', JSON.stringify(todo))
     }
     todoFilter = (filter: string | null) => {

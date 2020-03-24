@@ -11,9 +11,9 @@
                             &#32;<small>{{todosServise.viewTodo.create}}</small></p>
                     </div>
                 </ng-container>
-                <ng-container *ngIf="!todosServise.viewTodo" class="row ">
-                    <div class="col-12 justify-content-center mt-5 " >
-                       <h1>Выберите заметку</h1>
+                <ng-container *ngIf="!todosServise.viewTodo">
+                    <div class="col-12 justify-content-center mt-5 ">
+                        <h1>Выберите заметку</h1>
                     </div>
                 </ng-container>
             </div>
@@ -45,7 +45,7 @@
         <div class="col-10 todosTable">
             <table class="table">
                 <tr>
-                    <th hidden>&#10003;</th>
+                    <th [hidden]="!todosServise.deleteMode">&#10003;</th>
                     <th>№</th>
                     <th>название</th>
                     <th>описание</th>
@@ -56,18 +56,17 @@
                 </tr>
                 <ng-container *ngFor="let item of todosServise.todosTable;let i=index ">
                     <tr (click)="rowClick($event, item.id)" [class.tr__changed]="item.changed" class="tr-pointer">
-                        <ng-container>
-                            <td hidden><input type="checkbox" [checked]="item.completed"
-                                    (change)="onChangeComplete(item.id)">
-                            </td>
-                            <td>{{i+1}}</td>
-                            <td>{{item.name}}</td>
-                            <td>{{item.description}}</td>
-                            <td>{{item.importance}}</td>
-                            <td>{{item.create | date:'short'}}</td>
-                            <td>{{item.deadline | date:'short'}}</td>
-                            <td>{{(item.completed | date:'short')||'не выполнено'}}</td>
-                        </ng-container>
+                        <td [hidden]="!todosServise.deleteMode"><input type="checkbox" 
+                            [checked]="todosServise.isSetedDeleted(item.id)" 
+                                (change)="onSetDelete(item.id)">
+                        </td>
+                        <td>{{i+1}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.description}}</td>
+                        <td>{{item.importance}}</td>
+                        <td>{{item.create | date:'short'}}</td>
+                        <td>{{item.deadline | date:'short'}}</td>
+                        <td>{{(item.completed | date:'short')||'не выполнено'}}</td>
                     </tr>
                 </ng-container>
             </table>

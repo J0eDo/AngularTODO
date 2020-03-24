@@ -19,12 +19,11 @@ export class RemoteTableComponent implements OnInit {
   public remove: any
   public redact: any
   public btns: RemoteBtn
-
+  public noChecked = false
   constructor(public todosService: todosService, public dialog: MatDialog) {
     this.btns = todosService.remoteBtn
     this.redact = todosService.todoRedact
     this.remove = todosService.todoDelete
-    this.changedList = todosService.changedList
   }
 
   openDialog(): void {
@@ -39,7 +38,11 @@ export class RemoteTableComponent implements OnInit {
 
   deleteMode() {
     this.todosService.deleteMode = !this.todosService.deleteMode
-    /* this.remove() */
+    this.todosService.todoClearDeleteID()
+  }
+  onDeleteTodo() {
+  /*   this.todosService.deleteMode = !this.todosService.deleteMode */
+    this.todosService.todoDelete()
   }
 
   ngOnInit(): void {

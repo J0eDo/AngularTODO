@@ -13,6 +13,7 @@ import { Todo, todosService, Importance } from '../shared/todos.service'
 
 export class TableComponent implements OnInit {
   public viewTodo: Todo | undefined
+
   public filter: string
   public filterApply: any
   constructor(public todosServise: todosService) {
@@ -25,8 +26,8 @@ export class TableComponent implements OnInit {
     }
   }
 
-  onChangeComplete(id: number) {
-    this.todosServise.onToggle(id)
+  onSetDelete(id: number) {
+    this.todosServise.changeDeletedID(id)
   }
 
   setFilter = (e: any, filterName: string | null) => {
@@ -34,7 +35,6 @@ export class TableComponent implements OnInit {
       this.filter = filterName
       this.filterApply(filterName)
     }
-
   }
 
   ngOnInit(): void {

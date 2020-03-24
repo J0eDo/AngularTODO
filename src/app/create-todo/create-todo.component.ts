@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class CreateTodoComponent implements OnInit {
   private saveTodo: any
-  private setedTodo : Todo
+  private setedTodo: Todo
   public todo: Todo = {
     id: '',
     name: '',
@@ -29,7 +29,7 @@ export class CreateTodoComponent implements OnInit {
     //@Inject(MAT_DIALOG_DATA) public data: IWindowData
   ) {
     this.saveTodo = todosService.todoSave
-    this.setedTodo = todosService.changedList[0]
+    this.setedTodo = todosService.viewTodo
   }
 
   onNoClick(): void {

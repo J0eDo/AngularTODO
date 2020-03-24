@@ -3,15 +3,35 @@
         <div class="col-4">
             <hr />
             <div class="btn-group">
-                <button class="btn btn-primary" [disabled]='btns.edite.disabled'
-                    (click)='redact()'>редактировать</button>
-                <button class="btn btn-success" [disabled]='btns.add.disabled' (click)='openDialog()'>создать</button>
-                <button class="btn btn-danger ml-3"  (click)='deleteMode(true)'>
-                    <span
-                        class="material-icons">
-                        delete
+                <button class="btn btn-primary" [disabled]='btns.edite.disabled' (click)='redact()'>
+                    <span class="material-icons">
+                        create
+                    </span>
+                    править</button>
+                <button class="btn btn-success" [disabled]='btns.add.disabled' (click)='openDialog()'>
+                    <span class="material-icons">
+                        note_add
                     </span>
                 </button>
+                <ng-container *ngIf="!this.todosService.deleteMode">
+                    <button class="btn btn-danger ml-3" (click)='deleteMode()'>
+                        <span class="material-icons">
+                            delete_sweep
+                        </span>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="this.todosService.deleteMode">
+                    <button class="btn btn-dark ml-3" (click)='deleteMode()'>
+                        <span class="material-icons">
+                            clear
+                        </span>
+                    </button>
+                    <button class="btn btn-danger" (click)='onDeleteTodo()'>
+                        <span class="material-icons">
+                            check
+                        </span>
+                    </button>
+                </ng-container>
             </div>
         </div>
         <div class="col-4 mt-3">
