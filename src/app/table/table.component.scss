@@ -1,6 +1,56 @@
-.tr-pointer{
+.tr-pointer {
     cursor: pointer;
 }
-.tr__changed{
+
+.tr__changed {
     background-color: darkgrey;
+    color: rgb(41, 39, 39);
+}
+
+.noborder {
+    margin : 0 !important;
+    padding: 0;
+}
+
+.filters_conteiner {
+    padding   : .5rem;
+    background: rgb(93, 102, 105);
+    background: -moz-linear-gradient(90deg, rgba(93, 102, 105, 0.7346288857339811) 0%, rgba(170, 167, 182, 1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(93, 102, 105, 0.7346288857339811) 0%, rgba(170, 167, 182, 1) 100%);
+    background: linear-gradient(90deg, rgba(93, 102, 105, 0.7346288857339811) 0%, rgba(170, 167, 182, 1) 100%);
+    filter    : progid:DXImageTransform.Microsoft.gradient(startColorstr="#5d6669", endColorstr="#aaa7b6", GradientType=1);
+    width     : 100%;
+}
+
+.tetrade-bg {
+    background: url('../pictures/notebook-paper.jpg')
+}
+
+.preview-todo{
+    min-width: 400px;
+    background-color: rgba(118, 118, 134, 0.514);
+    height: 80%;
+    margin: auto;
+
+    h3{
+        font-weight: 600;
+        font-size: 1.6rem;
+        text-align: center;
+    }
+    .preview-todo_description{
+        text-align: left;
+        color: rgb(39, 24, 129);
+        font-family: 'Pattaya', sans-serif;
+        font-size: 1.2rem;
+    }
+    .preview-todo_date{
+        text-align: right;
+    }
+}
+
+.todosTable{
+    margin-top: .5rem;
+    min-height: 450px!important;
+    overflow-y: auto;
+    background-color: rgba(139, 125, 128, 0.13);
 }

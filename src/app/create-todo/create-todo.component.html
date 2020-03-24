@@ -25,10 +25,10 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Важность</span>
             </div>
-            <select class="custom-select custom-select">
-                <option selected>Обычная</option>
-                <option value="2">Средняя</option>
-                <option value="3">Очень важно</option>
+            <select class="custom-select custom-select" [(ngModel)]="todo.importance">
+                <option value="Обычная" selected >Обычная</option>
+                <option value="Средняя">Средняя</option>
+                <option value="Очень важно">Очень важно</option>
             </select>
         </div>
         <div class="input-group mb-3">
@@ -55,5 +55,4 @@
                 сохранить
             </button>
         </div>
-
     </div>

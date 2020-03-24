@@ -1,17 +1,22 @@
-<div class="conteiner ">
+<div class="conteiner mb-5">
     <div class="row justify-content-around">
         <div class="col-4">
+            <hr />
             <div class="btn-group">
-                <button class="btn btn-danger" 
-                [disabled]='btns.delete.disabled' (click)='tester()'>УДАЛИТЬ</button>
-            </div>
-        </div>
-        <div class='col-2'>
-            <div class='btn-group'>
                 <button class="btn btn-primary" [disabled]='btns.edite.disabled'
                     (click)='redact()'>редактировать</button>
                 <button class="btn btn-success" [disabled]='btns.add.disabled' (click)='openDialog()'>создать</button>
+                <button class="btn btn-danger ml-3"  (click)='deleteMode(true)'>
+                    <span
+                        class="material-icons">
+                        delete
+                    </span>
+                </button>
             </div>
+        </div>
+        <div class="col-4 mt-3">
+            <mat-paginator [length]="100" [pageSize]="10">
+            </mat-paginator>
         </div>
     </div>
 </div>

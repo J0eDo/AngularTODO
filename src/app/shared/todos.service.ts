@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core'
 import { element } from 'protractor'
 
 export enum Importance {
-    lv1 = 'Обычная',
-    lv2 = 'Важная',
-    lv3 = 'Очень важная'
+    low = 'Обычная',
+    midl = 'Важная',
+    height = 'Очень важная'
 }
 
 export interface Todo {
@@ -33,26 +33,29 @@ export interface RemoteBtn {
 let dateTime = new Date().toUTCString()
 @Injectable({ providedIn: 'root' })
 export class todosService {
-    private changedList = new Set()
-    public todos: Todo[] = [
+    public changedList = new Set()
+    public viewTodo: Todo | null = null
+    public todosTable: Todo[]
+    public deleteMode: boolean = false
+    public todosAll: Todo[] = [
         {
             id: 1, name: 'Second todo', description: 'it second todo',
-            importance: Importance.lv1, create: dateTime,
+            importance: Importance['low'], create: dateTime,
             completed: dateTime, deadline: dateTime, changed: false
         },
         {
             id: 2, name: 'First todo', description: 'it no  second ha-ha todo(2)'
-            , importance: Importance.lv1, create: dateTime,
+            , importance: Importance['height'], create: dateTime,
             completed: dateTime, deadline: dateTime, changed: false
         },
         {
             id: 3, name: 'Thiard todo', description: 'it 4 todo',
-            importance: Importance.lv3, create: dateTime,
+            importance: Importance['midl'], create: dateTime,
             completed: dateTime, deadline: dateTime, changed: false
         },
         {
             id: 4, name: 'Five todo', description: 'it 5(five) todo',
-            importance: Importance.lv2, create: dateTime,
+            importance: Importance['midl'], create: dateTime,
             completed: '', deadline: dateTime, changed: false
         }
     ]
@@ -71,7 +74,7 @@ export class todosService {
 
 
     onToggle(id: number) {
-        const todoElement = this.todos.find(element => element.id === id)
+        const todoElement = this.todosAll.find(element => element.id === id)
         if (todoElement.completed) {
             todoElement.completed = ''
         } else {
@@ -79,18 +82,24 @@ export class todosService {
         }
     }
 
-    rowClick(id: number) {
-        if (this.changedList.has(id)) {
-            this.changedList.delete(id)
-            this.todos.find(element => element.id === id)
-                .changed = false
+    rowClick = (id: number) => {
+        const newViewTodo = this.todosAll.find(element => element.id === id)
+        if (this.viewTodo === null || this.viewTodo.id !== id) {
+            this.viewTodo ? this.viewTodo.changed = false : null
+            this.viewTodo = newViewTodo
+            this.viewTodo.changed = true
         } else {
-            this.changedList.add(id)
-            this.todos.find(element => element.id === id)
-                .changed = true
+            this.viewTodo.changed = false
+            this.viewTodo = null
         }
+        /*   if (this.changedList.has(id)) {
+              this.changedList.delete(id)
+              this.viewTodo.changed = false
+          } else {
+              this.changedList.add(id)
+              this.viewTodo.changed = true
+          } */
         this.remoteBtnsActivator()
-
     }
 
     remoteBtnsActivator() {
@@ -105,25 +114,26 @@ export class todosService {
             this.remoteBtn.delete.disabled = false;
             this.remoteBtn.edite.disabled = true;
         }
-
     }
 
 
     todoDelete = () => {
-        this.todos = this.todos.filter(element => !this.changedList.has(element.id))
-
+        this.todosAll = this.todosAll.filter(element => !this.changedList.has(element.id))
     }
 
-    todoAdd = () => {
-        let id = this.todos.length + 1
-        console.log(id);
-
-        this.todos.push({
-            id, name: 'First todo', description: 'it no  second ha-ha todo(2)'
-            , importance: Importance.lv1, create: dateTime,
-            completed: dateTime, deadline: dateTime, changed: false
-        })
+    todoSave = (todo: Todo) => {
+        this.todosAll.push(todo)
+        localStorage.setItem('todo', JSON.stringify(todo))
     }
+    todoFilter = (filter: string | null) => {
+        if (filter) {
+            this.todosTable = this.todosAll.filter(element => element.importance === Importance[filter])
+        } else {
+            this.todosTable = this.todosAll
+        }
+    }
+
+
     todoRedact() {
         alert('redact')
     }

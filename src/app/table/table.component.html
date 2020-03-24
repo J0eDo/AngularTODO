@@ -1,15 +1,52 @@
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-6">Online blocknot</h1>
+<div class=" jumbotron jumbotron-fluid noborder">
+    <div class="row tetrade-bg">
+        <div class="col-8  d-flex justify-content-center mt-4">
+            <div class="conteiner ">
+                <ng-container *ngIf="todosServise.viewTodo" class="row ">
+                    <div class="col-12 preview-todo">
+                        <h3>{{todosServise.viewTodo.name}}</h3>
+                        <br />
+                        <p class="preview-todo_description">{{todosServise.viewTodo.description}}</p>
+                        <p class="preview-todo_date">создано:
+                            &#32;<small>{{todosServise.viewTodo.create}}</small></p>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="!todosServise.viewTodo" class="row ">
+                    <div class="col-12 justify-content-center mt-5 " >
+                       <h1>Выберите заметку</h1>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="col-4 filters_conteiner d-flex justify-content-end">
+            <div class=" btn-group-vertical mr-5" data-toggle="buttons">
+                <label class="btn btn-secondary" (click)="setFilter($event,null)">
+                    <input type="radio" name="options" checked>
+                    Все
+                </label>
+                <label class="btn btn-secondary " (click)="setFilter($event,'low')">
+                    <input type="radio" name="options">
+                    Обычные
+                </label>
+                <label class="btn btn-secondary" (click)="setFilter($event,'midl')">
+                    <input type="radio" name="options">
+                    Важные
+                </label>
+                <label class="btn btn-secondary" (click)="setFilter($event,'height')">
+                    <input type="radio" name="options">
+                    Срочные
+                </label>
+            </div>
+        </div>
     </div>
 </div>
 <div class="conteiner ">
-    <div class="row justify-content-around align-items-center">
-        <div class="col-10">
+    <div class="row justify-content-around ">
+        <div class="col-10 todosTable">
             <table class="table">
                 <tr>
-                    <th>&#10003;</th>
-                    <th>ID</th>
+                    <th hidden>&#10003;</th>
+                    <th>№</th>
                     <th>название</th>
                     <th>описание</th>
                     <th>важность</th>
@@ -17,12 +54,13 @@
                     <th>выполнить до</th>
                     <th>выполнено</th>
                 </tr>
-                <ng-container *ngFor="let item of todosServise.todos;let i=index ">
-                    <tr (click)="_rowClick($event, item.id)" [class.tr__changed]="item.changed" class="tr-pointer">
+                <ng-container *ngFor="let item of todosServise.todosTable;let i=index ">
+                    <tr (click)="rowClick($event, item.id)" [class.tr__changed]="item.changed" class="tr-pointer">
                         <ng-container>
-                            <td><input type="checkbox" [checked]="item.completed" (change)="onChangeComplete(item.id)">
+                            <td hidden><input type="checkbox" [checked]="item.completed"
+                                    (change)="onChangeComplete(item.id)">
                             </td>
-                            <td>{{item.id}}</td>
+                            <td>{{i+1}}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.description}}</td>
                             <td>{{item.importance}}</td>
@@ -34,24 +72,6 @@
                 </ng-container>
             </table>
         </div>
-        <div class="col-1">
-            <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons">
-                <label class="btn btn-secondary active btn">
-                    <input type="radio" name="options" id="option1" checked> Важные
-                </label>
-                <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="option2"> Обычные
-                </label>
-                <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="option3"> Срочные
-                </label>
-            </div>
-        </div>
+
     </div>
-    <div class="row">
-        <div class="col">
-            <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
-            </mat-paginator>
-        </div>
-    </div>
-    <remote-table (changedList)="changedList"></remote-table>
+    <remote-table></remote-table>

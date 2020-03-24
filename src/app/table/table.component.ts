@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Todo, todosService } from '../shared/todos.service'
+import { Component, OnInit, NgModule } from '@angular/core';
+import { Todo, todosService, Importance } from '../shared/todos.service'
 
 
 @Component({
@@ -12,10 +12,14 @@ import { Todo, todosService } from '../shared/todos.service'
 
 
 export class TableComponent implements OnInit {
-  @Input() todos: Todo[]
-  @Input() changedList: any
-  constructor(public todosServise: todosService) { }
-  _rowClick(e: any, id: number) {
+  public viewTodo: Todo | undefined
+  public filter: string
+  public filterApply: any
+  constructor(public todosServise: todosService) {
+    this.filterApply = todosServise.todoFilter
+  }
+
+  rowClick(e: any, id: number) {
     if (e.target.tagName !== 'INPUT') {
       this.todosServise.rowClick(id)
     }
@@ -25,8 +29,16 @@ export class TableComponent implements OnInit {
     this.todosServise.onToggle(id)
   }
 
-  ngOnInit(): void {
+  setFilter = (e: any, filterName: string | null) => {
+    if (filterName !== this.filter) {
+      this.filter = filterName
+      this.filterApply(filterName)
+    }
 
+  }
+
+  ngOnInit(): void {
+    this.filterApply(null)
   }
 
 }
